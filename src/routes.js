@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import swaggerSpec from './utils/swagger';
-import usersController from './controllers/users';
+import projectTaskController from './controllers/projectTaskController';
+import timeSheetController from './controllers/timesheetController';
 
 /**
  * Contains all API routes for the application.
@@ -24,6 +25,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.use('/users', usersController);
+router.use('/projecttasks', projectTaskController);
+// router.use('/timesheet', timeSheetController);
 
 export default router;
