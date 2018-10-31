@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import HttpStatus from 'http-status-codes';
 import * as timesheetService from '../services/timesheetService';
-import { findUser, userValidator, findTimesheet, timesheetValidator } from '../validators/userValidator';
+import { findTimesheet, timesheetValidator } from '../validators/timesheetValidator';
 import logger from '../utils/logger';
 
 const router = Router();
