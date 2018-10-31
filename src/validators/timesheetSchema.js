@@ -1,13 +1,11 @@
 import Joi from 'joi';
 import { TIMESHEET_STATUS_SAVED, TIMESHEET_STATUS_SUBMITTED } from '../constants/timesheetStatus';
 
-const TIMESHEET_SCHEMA = {
+const TIMESHEET_POST_SCHEMA = {
   //  2018-10-31
   //  2018-1-1
-  date: Joi.string()
+  date: Joi.date()
     .label('Date')
-    .max(10)
-    .min(8)
     .required(),
   duration: Joi.number()
     .label('Duration')
@@ -40,4 +38,4 @@ const TIMESHEET_SCHEMA = {
     .required()
 };
 
-export default TIMESHEET_SCHEMA;
+export { TIMESHEET_POST_SCHEMA };

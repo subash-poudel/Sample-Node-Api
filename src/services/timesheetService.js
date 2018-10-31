@@ -39,7 +39,7 @@ export function createTimesheet(data) {
 /**
  * Update a timesheet.
  *
- * @param  {Number|String}  id
+ * @param  {Number}  id
  * @param  {Object}         data
  * @return {Promise}
  */
@@ -50,7 +50,7 @@ export function updateTimesheet(id, data) {
 /**
  * Delete a timesheet.
  *
- * @param  {Number|String}  id
+ * @param  {Number}  id
  * @return {Promise}
  */
 export function deleteTimesheet(id) {
@@ -58,4 +58,19 @@ export function deleteTimesheet(id) {
   timesheet.then(timesheet => timesheet.destroy());
 
   return timesheet;
+}
+
+/**
+ * Fetch timesheets between two dates.
+ *
+ * @param  {date}  fromDate
+ * @param  {date}  toDate
+ * @return {Promise}
+ */
+export function fetchTimesheetByDate(fromDate, toDate) {
+  const timesheets = Timesheet.query(q => {
+    q.whereBetween('date', [fromDate, toDate]);
+  }).fetchAll();
+
+  return timesheets;
 }

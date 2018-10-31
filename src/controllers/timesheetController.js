@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import HttpStatus from 'http-status-codes';
 import * as timesheetService from '../services/timesheetService';
-import { findTimesheet, timesheetValidator } from '../validators/timesheetValidator';
+import { findTimesheet, timesheetPostValidator } from '../validators/timesheetValidator';
 import logger from '../utils/logger';
 
 const router = Router();
@@ -10,8 +10,11 @@ const router = Router();
  * GET /api/timesheet
  */
 router.get('/', (req, res, next) => {
+  // logger.info('Controller get all');
+  // logger.info(`from date ${req.query.from}`);
+  // logger.info(`to date ${req.query.to}`);
   timesheetService
-    .fetchAllTimesheet()
+    .fetchTimesheetByDate(req.query.from, req.query.to)
     .then(data => res.json({ data }))
     .catch(err => next(err));
 });
@@ -20,6 +23,8 @@ router.get('/', (req, res, next) => {
  * GET /api/timesheet/:id
  */
 router.get('/:id', findTimesheet, (req, res, next) => {
+  logger.info('Controller get by id');
+
   timesheetService
     .fetchTimesheet(req.params.id)
     .then(data => res.json({ data }))
@@ -29,7 +34,9 @@ router.get('/:id', findTimesheet, (req, res, next) => {
 /**
  * POST /api/timesheet
  */
-router.post('/', timesheetValidator, (req, res, next) => {
+router.post('/', timesheetPostValidator, (req, res, next) => {
+  logger.info('Controller create');
+
   timesheetService
     .createTimesheet(req.body)
     .then(data => res.status(HttpStatus.CREATED).json({ data }))
@@ -39,7 +46,7 @@ router.post('/', timesheetValidator, (req, res, next) => {
 /**
  * PUT /api/timesheet/:id
  */
-router.put('/:id', findTimesheet, timesheetValidator, (req, res, next) => {
+router.put('/:id', findTimesheet, timesheetPostValidator, (req, res, next) => {
   logger.info('Timesheet put request ' + req.body);
   timesheetService
     .updateTimesheet(req.params.id, req.body)
@@ -51,6 +58,8 @@ router.put('/:id', findTimesheet, timesheetValidator, (req, res, next) => {
  * DELETE /api/timesheet/:id
  */
 router.delete('/:id', findTimesheet, (req, res, next) => {
+  logger.info('Controller delete');
+
   timesheetService
     .deleteTimesheet(req.params.id)
     .then(data => res.status(HttpStatus.NO_CONTENT).json({ data }))

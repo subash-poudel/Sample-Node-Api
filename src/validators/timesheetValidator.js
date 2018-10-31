@@ -1,5 +1,5 @@
 import validate from '../utils/validate';
-import TIMESHEET_SCHEMA from './timesheetSchema';
+import { TIMESHEET_POST_SCHEMA } from './timesheetSchema';
 import * as timesheetService from '../services/timesheetService';
 
 /**
@@ -25,10 +25,10 @@ function findTimesheet(req, res, next) {
  * @param  {function} next
  * @return {Promise}
  */
-function timesheetValidator(req, res, next) {
-  return validate(req.body, TIMESHEET_SCHEMA)
+function timesheetPostValidator(req, res, next) {
+  return validate(req.body, TIMESHEET_POST_SCHEMA)
     .then(() => next())
     .catch(err => next(err));
 }
 
-export { findTimesheet, timesheetValidator };
+export { findTimesheet, timesheetPostValidator };

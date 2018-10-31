@@ -13,6 +13,10 @@ class Timesheet extends bookshelf.Model {
     return true;
   }
 
+  // parse() {
+  //   return '2018-11-11';
+  // }
+
   // summary: function() {
   // return this.hasOne(Summary);
   // }
