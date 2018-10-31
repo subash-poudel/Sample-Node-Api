@@ -1,7 +1,7 @@
-import { TIME_SHEET_TASKS_TABLE } from '../constants/tables';
+import { TIMESHEET_TASKS_TABLE } from '../constants/tables';
 
 export function up(knex, Promise) {
-  return knex.schema.createTable(TIME_SHEET_TASKS_TABLE, table => {
+  return knex.schema.createTable(TIMESHEET_TASKS_TABLE, table => {
     table.increments();
     table.string('name').notNullable();
     table.string('description');
@@ -11,5 +11,5 @@ export function up(knex, Promise) {
 }
 
 export function down(knex, Promise) {
-  return knex.schema.dropTable(TIME_SHEET_TASKS_TABLE);
+  return knex.schema.dropTable(TIMESHEET_TASKS_TABLE);
 }

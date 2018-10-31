@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import { TIMESHEET_STATUS_SAVED, TIMESHEET_STATUS_SUBMITTED } from '../constants/timesheetStatus';
 
 const TIMESHEET_SCHEMA = {
   //  2018-10-31
@@ -24,13 +25,17 @@ const TIMESHEET_SCHEMA = {
     .label('Project Id')
     .positive()
     .required(),
+  timesheet_status: Joi.string()
+    .label('TimeSheet Status')
+    .valid([TIMESHEET_STATUS_SAVED, TIMESHEET_STATUS_SUBMITTED])
+    .required(),
   note: Joi.string()
     .label('Note')
     .required(),
   adjusted_note: Joi.string()
     .label('Adjusted Note')
     .allow(null),
-  time_sheet_task_id: Joi.number()
+  timesheet_task_id: Joi.number()
     .positive()
     .required()
 };

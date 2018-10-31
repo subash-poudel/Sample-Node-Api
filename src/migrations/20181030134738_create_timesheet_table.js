@@ -1,7 +1,8 @@
-import { TIME_SHEET_TABLE } from '../constants/tables';
+import { TIMESHEET_TABLE } from '../constants/tables';
+import { TIMESHEET_STATUS_SAVED, TIMESHEET_STATUS_SUBMITTED } from '../constants/timesheetStatus';
 
 export function up(knex, Promise) {
-  return knex.schema.createTable(TIME_SHEET_TABLE, table => {
+  return knex.schema.createTable(TIMESHEET_TABLE, table => {
     table.increments();
     table.datetime('date').defaultTo(knex.fn.now());
     table.integer('duration').defaultTo(0);
@@ -13,14 +14,13 @@ export function up(knex, Promise) {
     table.timestamp('created_at').defaultTo(knex.fn.now());
     table.timestamp('updated_at').defaultTo(knex.fn.now());
     // foreign keys
-    table.integer('time_sheet_task_id');
-    table.foreign('time_sheet_task_id').references('timesheet_tasks.id');
-
-    table.integer('time_sheet_status_id');
-    table.foreign('time_sheet_status_id').references('timesheet_status.id');
+    table.integer('timesheet_task_id');
+    table.foreign('timesheet_task_id').references('timesheet_tasks.id');
+    // enums
+    table.enu('status', [TIMESHEET_STATUS_SAVED, TIMESHEET_STATUS_SUBMITTED]);
   });
 }
 
 export function down(knex, Promise) {
-  return knex.schema.dropTable(TIME_SHEET_TABLE);
+  return knex.schema.dropTable(TIMESHEET_TABLE);
 }

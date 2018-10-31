@@ -5,6 +5,6 @@ import ProjectTasks from '../models/projectTasks';
  *
  * @return {Promise}
  */
-export function getAllProjectTasks() {
+export function fetchAll() {
   return ProjectTasks.fetchAll();
 }

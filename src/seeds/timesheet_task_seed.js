@@ -1,4 +1,4 @@
-import { TIME_SHEET_TASKS_TABLE } from '../constants/tables';
+import { TIMESHEET_TASKS_TABLE } from '../constants/tables';
 import logger from '../utils/logger';
 
 const taskList = [
@@ -14,14 +14,14 @@ const taskList = [
 ];
 
 const createTask = (knex, name) =>
-  knex(TIME_SHEET_TASKS_TABLE).insert({
+  knex(TIMESHEET_TASKS_TABLE).insert({
     name
   });
 
 export function seed(knex, Promise) {
-  logger.info(`Seed running = ${TIME_SHEET_TASKS_TABLE} list ${taskList}`);
+  logger.info(`Seed running = ${TIMESHEET_TASKS_TABLE} list ${taskList}`);
 
-  return knex(TIME_SHEET_TASKS_TABLE)
+  return knex(TIMESHEET_TASKS_TABLE)
     .del()
     .then(() => {
       const taskPromises = [];

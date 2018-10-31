@@ -1,12 +1,12 @@
 import bookshelf from '../db';
-import { TIME_SHEET_TABLE } from '../constants/tables';
+import { TIMESHEET_TABLE } from '../constants/tables';
 import ProjectTasks from './projectTasks';
 /**
  * Timesheet model.
  */
 class Timesheet extends bookshelf.Model {
   get tableName() {
-    return TIME_SHEET_TABLE;
+    return TIMESHEET_TABLE;
   }
 
   get hasTimestamps() {
