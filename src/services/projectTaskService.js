@@ -1,7 +1,7 @@
 import ProjectTasks from '../models/projectTasks';
 
 /**
- * Get all project tasks.
+ * Fetch all project tasks.
  *
  * @return {Promise}
  */

@@ -25,7 +25,7 @@ const TIMESHEET_SCHEMA = {
     .label('Project Id')
     .positive()
     .required(),
-  timesheet_status: Joi.string()
+  status: Joi.string()
     .label('TimeSheet Status')
     .valid([TIMESHEET_STATUS_SAVED, TIMESHEET_STATUS_SUBMITTED])
     .required(),

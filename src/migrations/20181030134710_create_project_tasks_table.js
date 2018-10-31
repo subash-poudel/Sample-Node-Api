@@ -5,6 +5,8 @@ export function up(knex, Promise) {
     table.increments();
     table.string('name').notNullable();
     table.string('description');
+    table.integer('created_by');
+    table.integer('updated_by');
     table.timestamp('created_at').defaultTo(knex.fn.now());
     table.timestamp('updated_at').defaultTo(knex.fn.now());
   });

@@ -11,7 +11,7 @@ const router = Router();
  */
 router.get('/', (req, res, next) => {
   timesheetService
-    .getAllTimesheet()
+    .fetchAllTimesheet()
     .then(data => res.json({ data }))
     .catch(err => next(err));
 });
@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
  */
 router.get('/:id', findTimesheet, (req, res, next) => {
   timesheetService
-    .getTimesheet(req.params.id)
+    .fetchTimesheet(req.params.id)
     .then(data => res.json({ data }))
     .catch(err => next(err));
 });

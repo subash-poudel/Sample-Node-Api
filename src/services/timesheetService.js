@@ -2,21 +2,21 @@ import Boom from 'boom';
 import TimeSheet from '../models/timesheet';
 
 /**
- * Get all timesheets.
+ * Fetch all timesheets.
  *
  * @return {Promise}
  */
-export function getAllTimesheet() {
+export function fetchAllTimesheet() {
   return TimeSheet.fetchAll();
 }
 
 /**
- * Get a timesheet.
+ * Fetch a timesheet.
  *
  * @param  {Number}  id
  * @return {Promise}
  */
-export function getTimesheet(id) {
+export function fetchTimesheet(id) {
   return new TimeSheet({ id }).fetch().then(timesheet => {
     if (!timesheet) {
       throw Boom.notFound('Timesheet not found');

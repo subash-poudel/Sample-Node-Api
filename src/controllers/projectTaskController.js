@@ -10,7 +10,7 @@ const router = Router();
  * GET /api/projecttasks
  */
 router.get('/', (req, res, next) => {
-  logger.info('Project Task Controller get all tasks.');
+  logger.info('Project Task Controller fetch all tasks.');
   projectTaskService
     .fetchAll()
     .then(data => res.json({ data }))

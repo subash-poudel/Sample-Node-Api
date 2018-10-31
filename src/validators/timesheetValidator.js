@@ -12,7 +12,7 @@ import * as timesheetService from '../services/timesheetService';
  */
 function findTimesheet(req, res, next) {
   return timesheetService
-    .getTimesheet(req.params.id)
+    .fetchTimesheet(req.params.id)
     .then(() => next())
     .catch(err => next(err));
 }
