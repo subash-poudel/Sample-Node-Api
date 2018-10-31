@@ -3,7 +3,10 @@ import { TIMESHEET_STATUS_SAVED, TIMESHEET_STATUS_SUBMITTED } from '../constants
 
 export function up(knex, Promise) {
   return knex.schema.createTable(TIMESHEET_TABLE, table => {
-    table.increments();
+    table
+      .uuid('id')
+      .defaultTo(knex.raw('uuid_generate_v1()'))
+      .primary();
     table
       .date('date')
       .defaultTo(knex.fn.now())
