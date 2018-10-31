@@ -26,6 +26,6 @@ router.get('/', (req, res) => {
 });
 
 router.use('/projecttasks', projectTaskController);
-// router.use('/timesheet', timeSheetController);
+router.use('/timesheet', timeSheetController);
 
 export default router;

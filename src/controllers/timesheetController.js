@@ -1,28 +1,60 @@
+import { Router } from 'express';
 import HttpStatus from 'http-status-codes';
 import * as timesheetService from '../services/timesheetService';
+import { findUser, userValidator, findTimesheet, timesheetValidator } from '../validators/userValidator';
 import logger from '../utils/logger';
 
-const createTimeSheet = async (req, res, next) => {
-  try {
-    logger.info(`Timesheet Create API: ${JSON.stringify(req.body)}`);
+const router = Router();
 
-    const data = {
-      date: req.body.date,
-      duration: req.body.duration,
-      adjusted_duration: req.body.adjusted_duration,
-      employee_id: req.body.employee_id,
-      project_id: req.body.project_id,
-      note: req.body.note,
-      adjusted_note: req.body.adjusted_note,
-      time_sheet_task_id: req.body.time_sheet_task_id,
-      time_sheet_status_id: req.body.time_sheet_status_id
-    };
+/**
+ * GET /api/timesheet
+ */
+router.get('/', (req, res, next) => {
+  timesheetService
+    .getAllTimesheet()
+    .then(data => res.json({ data }))
+    .catch(err => next(err));
+});
 
-    const tasks = await timesheetService.createTimeSheet(data);
-    res.status(HttpStatus.OK).json(tasks);
-  } catch (error) {
-    next(error);
-  }
-};
+/**
+ * GET /api/timesheet/:id
+ */
+router.get('/:id', findTimesheet, (req, res, next) => {
+  timesheetService
+    .getTimesheet(req.params.id)
+    .then(data => res.json({ data }))
+    .catch(err => next(err));
+});
 
-export { createTimeSheet };
+/**
+ * POST /api/timesheet
+ */
+router.post('/', timesheetValidator, (req, res, next) => {
+  timesheetService
+    .createTimesheet(req.body)
+    .then(data => res.status(HttpStatus.CREATED).json({ data }))
+    .catch(err => next(err));
+});
+
+/**
+ * PUT /api/timesheet/:id
+ */
+router.put('/:id', findTimesheet, timesheetValidator, (req, res, next) => {
+  logger.info('Timesheet put request ' + req.body);
+  timesheetService
+    .updateTimesheet(req.params.id, req.body)
+    .then(data => res.json({ data }))
+    .catch(err => next(err));
+});
+
+/**
+ * DELETE /api/timesheet/:id
+ */
+router.delete('/:id', findTimesheet, (req, res, next) => {
+  timesheetService
+    .deleteTimesheet(req.params.id)
+    .then(data => res.status(HttpStatus.NO_CONTENT).json({ data }))
+    .catch(err => next(err));
+});
+
+export default router;
