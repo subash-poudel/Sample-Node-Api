@@ -1,5 +1,11 @@
 require('@babel/register');
 require('dotenv').config({ path: __dirname + '/../.env' });
+const types = require('pg').types;
+
+// 1082 is the column id of date field. the code below returns the date in the same format as
+// it is saved in database
+
+types.setTypeParser(1082, val => val);
 
 // Default configuration for database connection
 let connection = {
